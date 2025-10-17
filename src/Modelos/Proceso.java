@@ -4,6 +4,9 @@
  */
 package Modelos;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author mariavictoriadasilvanunez
@@ -25,6 +28,41 @@ public class Proceso {
         this.estado = "Listo";
         this.pc = 1;
         this.mar = 0;
+        this.tiempoEspera = 0;
+    }
+    
+    /**
+     * Constructor con parámetros.Permite crear un proceso completamente configurado.
+     * @param id
+     * @param nombre
+     * @param tipo
+     * @param instrucciones
+     * @param ciclosParaExcepcion
+     * @param ciclosParaSatisfacerExcepcion
+     * @param prioridad
+     */
+    @JsonCreator
+    public Proceso(
+            @JsonProperty("id") int id,
+            @JsonProperty("nombre") String nombre,
+            @JsonProperty("tipo") String tipo,
+            @JsonProperty("instrucciones") int instrucciones,
+            @JsonProperty("ciclosParaExcepcion") int ciclosParaExcepcion,
+            @JsonProperty("ciclosParaSatisfacerExcepcion") int ciclosParaSatisfacerExcepcion,
+            @JsonProperty("prioridad") int prioridad
+    ) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.instrucciones = instrucciones;
+        this.ciclosParaExcepcion = ciclosParaExcepcion;
+        this.ciclosParaSatisfacerExcepcion = ciclosParaSatisfacerExcepcion;
+        this.prioridad = prioridad;
+
+        // Inicializaciones por defecto
+        this.pc = 1;
+        this.mar = 0;
+        this.estado = "Listo";
         this.tiempoEspera = 0;
     }
 
