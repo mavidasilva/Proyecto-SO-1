@@ -296,7 +296,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
         cpus[0] = new CPU(ctrl, planificador, /*id*/ 1, mutexCPUs);
 
         // Reloj
-        //reloj = new Reloj(mutexReloj, planificador, ctrl);
+        reloj = new Reloj(mutexReloj, planificador, ctrl);
 
         // Arrancar
         cpus[0].start();

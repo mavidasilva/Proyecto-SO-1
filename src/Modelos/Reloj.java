@@ -4,6 +4,7 @@
  */
 package Modelos;
 
+import Funciones.ControladorSimulacion;
 import static java.lang.Thread.sleep;
 import java.util.concurrent.Semaphore;
 
@@ -13,13 +14,16 @@ import java.util.concurrent.Semaphore;
  */
 public class Reloj extends Thread{
     private Semaphore mutex;
+    private ControladorSimulacion controlador;
+    private Planificador planificador;
     private int ciclo;
     private volatile boolean running = true;
 
-    //Debo agregar el Planificador
-    public Reloj(Semaphore mutex) {
+    public Reloj(Semaphore mutex, Planificador dispatcher, ControladorSimulacion controlador) {
         this.mutex = mutex;
         this.ciclo = 0;
+        this.planificador = dispatcher;
+        this.controlador = controlador;
     }
     
     public void shutdown() {                
@@ -31,13 +35,16 @@ public class Reloj extends Thread{
     public void run() {
         while (running) {                   
             try {
+                sleep(controlador.getTiempo());
                 if (!running) break;
                 mutex.acquire();
             } catch (InterruptedException ex) {
                 if (!running) break;         
             }
+            this.planificador.updateWaitingTime();
             mutex.release();
             ciclo++;
+            controlador.actulizarCiclo(ciclo);
         }
     }
 }
