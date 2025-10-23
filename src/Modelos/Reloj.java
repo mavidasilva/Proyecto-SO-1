@@ -12,7 +12,8 @@ import java.util.concurrent.Semaphore;
  *
  * @author mariavictoriadasilvanunez
  */
-public class Reloj extends Thread{
+public class Reloj extends Thread {
+
     private Semaphore mutex;
     private ControladorSimulacion controlador;
     private Planificador planificador;
@@ -25,27 +26,41 @@ public class Reloj extends Thread{
         this.planificador = dispatcher;
         this.controlador = controlador;
     }
-    
-    public void shutdown() {                
+
+    public void shutdown() {
         running = false;
         this.interrupt();
     }
 
     @Override
     public void run() {
-        while (running) {                   
+        while (running) {
             try {
                 sleep(controlador.getTiempo());
-                if (!running) break;
+                if (!running) {
+                    break;
+                }
                 mutex.acquire();
             } catch (InterruptedException ex) {
-                if (!running) break;         
+                if (!running) {
+                    break;
+                }
             }
             this.planificador.updateWaitingTime();
+
+            // LÍMITES de "memoria" simulada
+            int MAX_READY = 5;
+            int MAX_BLOCKED = 3;  
+
+            // 1) Sobrecarga => suspende exceso de Ready y de Blocked
+            this.planificador.verificarSobrecargaMemoria(MAX_READY, MAX_BLOCKED);
+
+            // 2) Si hay espacio libre en Ready => trae procesos desde Suspendido-Listo
+            this.planificador.promoverSuspendidosSiHayEspacio(MAX_READY);
+
             mutex.release();
             ciclo++;
             controlador.actulizarCiclo(ciclo);
         }
     }
 }
-

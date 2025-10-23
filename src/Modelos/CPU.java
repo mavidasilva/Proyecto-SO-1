@@ -19,7 +19,7 @@ public class CPU extends Thread {
     private int quantum;
     private int memoryAddressRegister;
     private int programCounter;
-    private Lista interruptionsList;        
+    private Lista interruptionsList;
     private Planificador planificador;
     private Proceso currentProcess;
     private int id;
@@ -152,6 +152,8 @@ public class CPU extends Thread {
         } catch (InterruptedException ex) {
             Logger.getLogger(Interrupcion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.planificador.onIOComplete(exception.getProcessId());
+
         mutexCPUs.release();
     }
 

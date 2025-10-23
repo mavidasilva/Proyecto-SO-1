@@ -18,8 +18,8 @@ public class Planificador {
     private Lista blockedList;
     private Lista exitList;
     private Lista allProcessList;
-    private Lista suspendedReadyList;     
-    private Lista suspendedBlockedList;   
+    private Lista suspendedReadyList;
+    private Lista suspendedBlockedList;
 
     private ControladorSimulacion controlador;
     public int selectedAlgorithm;
@@ -425,4 +425,86 @@ public class Planificador {
                 + "\n MAR: " + currentProcess.getMar()
                 + "\n Espera: " + currentProcess.getTiempoEspera();
     }
+
+    /**
+     * Verifica límites de memoria simulada. Si hay exceso en Ready => pasa más
+     * antiguos a Suspendido-Listo. Si hay exceso en Blocked => pasa más
+     * antiguos a Suspendido-Bloqueado.
+     */
+    public void verificarSobrecargaMemoria(int maxReady, int maxBlocked) {
+        if (readyList.getSize() > maxReady) {
+            int exceso = readyList.getSize() - maxReady;
+            for (int i = 0; i < exceso; i++) {
+                // Tomo cabeza (el más antiguo)
+                Proceso p = (Proceso) readyList.getpFirst().getDato();
+                readyList.eliminarInicio();
+                p.setEstado("Suspendido-Listo");
+                suspendedReadyList.InsertarFinal(p);
+            }
+        }
+
+        if (blockedList.getSize() > maxBlocked) {
+            int exceso = blockedList.getSize() - maxBlocked;
+            for (int i = 0; i < exceso; i++) {
+                Proceso p = (Proceso) blockedList.getpFirst().getDato();
+                blockedList.eliminarInicio();
+                p.setEstado("Suspendido-Bloqueado");
+                suspendedBlockedList.InsertarFinal(p);
+            }
+        }
+
+        updateAllQueuesOnUI();
+    }
+
+    /**
+     * Cuando hay espacio libre, promociona procesos suspendidos-listos a Ready.
+     */
+    public void promoverSuspendidosSiHayEspacio(int maxReady) {
+        while (readyList.getSize() < maxReady && !suspendedReadyList.isEmpty()) {
+            Proceso p = (Proceso) suspendedReadyList.getpFirst().getDato();
+            suspendedReadyList.eliminarInicio();
+            p.setEstado("Listo");
+            readyList.InsertarFinal(p);
+        }
+        updateAllQueuesOnUI();
+    }
+
+    /**
+     * Llamar cuando una interrupción de E/S termina para cierto proceso. - Si
+     * estaba en Suspendido-Bloqueado => pasa a Suspendido-Listo (sigue fuera de
+     * memoria). - Si estaba en Bloqueado => pasa a Listo (está en memoria).
+     */
+    public void onIOComplete(int pid) {
+        // 1) ¿Está en suspendido-bloqueado?
+        Nodo n = suspendedBlockedList.getpFirst();
+        while (n != null) {
+            Proceso p = (Proceso) n.getDato();
+            if (p.getId() == pid) {
+                suspendedBlockedList.eliminarPorReferencia(p);
+                p.setEstado("Suspendido-Listo");
+                suspendedReadyList.InsertarFinal(p);
+                updateAllQueuesOnUI();
+                return;
+            }
+            n = n.getPnext();
+        }
+
+        // 2) ¿Está en bloqueados?
+        n = blockedList.getpFirst();
+        while (n != null) {
+            Proceso p = (Proceso) n.getDato();
+            if (p.getId() == pid) {
+                blockedList.eliminarPorReferencia(p);
+                p.setEstado("Listo");
+                readyList.InsertarFinal(p);
+                updateAllQueuesOnUI();
+                return;
+            }
+            n = n.getPnext();
+        }
+
+        // (opcional) log
+        System.out.println("onIOComplete: proceso " + pid + " no encontrado en bloqueados/suspendidos-bloqueados");
+    }
+
 }

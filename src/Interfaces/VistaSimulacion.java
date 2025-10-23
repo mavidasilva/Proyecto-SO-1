@@ -57,7 +57,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
      */
     public VistaSimulacion(int tiempo, int politica, Lista listo, Lista todos) {
         initComponents();
-        this.unidadescpu.setText("1");
         dataset1 = new DefaultPieDataset();
         dataset2 = new DefaultPieDataset();
         dataset3 = new DefaultPieDataset();
@@ -73,23 +72,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
         this.listolista = listo;
         this.todos = todos;
         this.uPcbs();
-
-        this.unidadescpu.setText("1");
-        this.unidadescpu.setEnabled(false);
-
-        suspendidosListos = new javax.swing.JTextArea();
-        suspendidosListos.setEditable(false);
-        javax.swing.JScrollPane spSL = new javax.swing.JScrollPane(suspendidosListos);
-        jPanel4.add(spSL, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 50, 120, 140));
-        javax.swing.JLabel lblSL = new javax.swing.JLabel("Suspendidos-Listo");
-        jPanel4.add(lblSL, new org.netbeans.lib.awtextra.AbsoluteConstraints(675, 30, -1, -1));
-
-        suspendidosBloqueados = new javax.swing.JTextArea();
-        suspendidosBloqueados.setEditable(false);
-        javax.swing.JScrollPane spSB = new javax.swing.JScrollPane(suspendidosBloqueados);
-        jPanel4.add(spSB, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 220, 120, 120));
-        javax.swing.JLabel lblSB = new javax.swing.JLabel("Suspendidos-Bloqueado");
-        jPanel4.add(lblSB, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, -1, -1));
 
     }
 
@@ -325,6 +307,9 @@ public class VistaSimulacion extends javax.swing.JFrame {
         duracionexcep = new javax.swing.JTextField();
         tipoproceso = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        allProcess = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
@@ -355,8 +340,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
         suspendidosBloqueados = new javax.swing.JTextArea();
         jPanel3 = new javax.swing.JPanel();
         tiempoinstruccion = new javax.swing.JSlider();
-        unidadescpu = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         politica = new javax.swing.JComboBox<>();
@@ -373,47 +356,47 @@ public class VistaSimulacion extends javax.swing.JFrame {
                 guardarprocesoActionPerformed(evt);
             }
         });
-        jPanel2.add(guardarproceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 320, 140, 30));
+        jPanel2.add(guardarproceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, 420, 30));
 
         nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreActionPerformed(evt);
             }
         });
-        jPanel2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 280, -1));
+        jPanel2.add(nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 280, -1));
 
         jLabel9.setText("Nombre:");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
 
         jLabel10.setText("Duración: ");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 70, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, -1, -1));
 
         duracion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 duracionActionPerformed(evt);
             }
         });
-        jPanel2.add(duracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 280, -1));
+        jPanel2.add(duracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 280, -1));
 
         jLabel11.setText("Cada excepción:");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, -1, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 250, -1, -1));
 
         cicloexcep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cicloexcepActionPerformed(evt);
             }
         });
-        jPanel2.add(cicloexcep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 280, -1));
+        jPanel2.add(cicloexcep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 280, -1));
 
         jLabel12.setText("Duración excepción:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 230, -1, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, -1, -1));
 
         duracionexcep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 duracionexcepActionPerformed(evt);
             }
         });
-        jPanel2.add(duracionexcep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 230, 280, -1));
+        jPanel2.add(duracionexcep, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 280, -1));
 
         tipoproceso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CPU Bound", "I/O Bound" }));
         tipoproceso.addActionListener(new java.awt.event.ActionListener() {
@@ -421,10 +404,20 @@ public class VistaSimulacion extends javax.swing.JFrame {
                 tipoprocesoActionPerformed(evt);
             }
         });
-        jPanel2.add(tipoproceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 280, -1));
+        jPanel2.add(tipoproceso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, 280, -1));
 
         jLabel13.setText("Tipo:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 30, 20));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 30, 20));
+
+        allProcess.setColumns(20);
+        allProcess.setRows(5);
+        jScrollPane3.setViewportView(allProcess);
+
+        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 180, 320));
+
+        jLabel5.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
+        jLabel5.setText("Crear Procesos");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
         jTabbedPane1.addTab("Añadir", jPanel2);
 
@@ -457,14 +450,14 @@ public class VistaSimulacion extends javax.swing.JFrame {
         cpu1.setRows(5);
         jScrollPane4.setViewportView(cpu1);
 
-        jPanel4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 150, 360));
+        jPanel4.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 150, 430));
 
         salida.setEditable(false);
         salida.setColumns(20);
         salida.setRows(5);
         jScrollPane1.setViewportView(salida);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 220, 110, 120));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 110, 180));
 
         pcbs.setEditable(false);
         pcbs.setColumns(20);
@@ -476,43 +469,43 @@ public class VistaSimulacion extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(pcbs);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 110, 290));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 110, 410));
 
         bloqueados.setEditable(false);
         bloqueados.setColumns(20);
         bloqueados.setRows(5);
         jScrollPane7.setViewportView(bloqueados);
 
-        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 50, 110, 130));
+        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 110, 170));
 
         listos.setEditable(false);
         listos.setColumns(20);
         listos.setRows(5);
         jScrollPane6.setViewportView(listos);
 
-        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 110, 290));
+        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 110, 410));
 
         jLabel1.setText("PCB");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
 
         jLabel2.setText("Salida");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
 
         jLabel3.setText("Suspendido Bloq.");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
 
         jLabel4.setText("Listos");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, -1, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
 
         jLabel6.setText("Reloj Global");
-        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, -1, -1));
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         relojglobal.setEditable(false);
         relojglobal.setText("0");
-        jPanel4.add(relojglobal, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 70, -1));
+        jPanel4.add(relojglobal, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 150, -1));
 
         jLabel8.setText("CPU 1");
-        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel4.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
         btnDetener.setText("DETENER");
         btnDetener.addActionListener(new java.awt.event.ActionListener() {
@@ -520,27 +513,27 @@ public class VistaSimulacion extends javax.swing.JFrame {
                 btnDetenerActionPerformed(evt);
             }
         });
-        jPanel4.add(btnDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 340, -1));
+        jPanel4.add(btnDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 340, -1));
 
         suspendidosListos.setEditable(false);
         suspendidosListos.setColumns(20);
         suspendidosListos.setRows(5);
         jScrollPane8.setViewportView(suspendidosListos);
 
-        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 220, 110, 130));
+        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 110, 180));
 
         jLabel18.setText("Bloqueados");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 30, -1, -1));
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
 
         jLabel19.setText("Suspendido listo");
-        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 200, -1, -1));
+        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, -1, -1));
 
         suspendidosBloqueados.setEditable(false);
         suspendidosBloqueados.setColumns(20);
         suspendidosBloqueados.setRows(5);
         jScrollPane9.setViewportView(suspendidosBloqueados);
 
-        jPanel4.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 50, 110, 130));
+        jPanel4.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 120, 170));
 
         jTabbedPane1.addTab("Simulación", jPanel4);
 
@@ -555,17 +548,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
             }
         });
         jPanel3.add(tiempoinstruccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 100, 220, -1));
-
-        unidadescpu.setText("1");
-        unidadescpu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                unidadescpuActionPerformed(evt);
-            }
-        });
-        jPanel3.add(unidadescpu, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 210, -1));
-
-        jLabel14.setText("CPUs:");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, -1, -1));
 
         jLabel15.setText("Tiempo instrucción: ");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, -1, -1));
@@ -590,7 +572,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 150, 30));
+        jPanel3.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 440, 30));
 
         jTabbedPane1.addTab("Configuración", jPanel3);
 
@@ -598,11 +580,13 @@ public class VistaSimulacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 806, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
         );
 
         pack();
@@ -623,10 +607,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private void duracionexcepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_duracionexcepActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_duracionexcepActionPerformed
-
-    private void unidadescpuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadescpuActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_unidadescpuActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
@@ -760,6 +740,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea allProcess;
     private javax.swing.JTextArea bloqueados;
     private javax.swing.JButton btnDetener;
     private javax.swing.JTextField cicloexcep;
@@ -773,7 +754,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -782,6 +762,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -792,6 +773,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -809,6 +791,5 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private javax.swing.JTextArea suspendidosListos;
     private javax.swing.JSlider tiempoinstruccion;
     private javax.swing.JComboBox<String> tipoproceso;
-    private javax.swing.JTextField unidadescpu;
     // End of variables declaration//GEN-END:variables
 }
