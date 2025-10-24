@@ -36,8 +36,6 @@ public class ProyectoSO1 {
             pw = pw.getPnext();
         }
         new VistaSimulacion(tiempo, politica, listos, todos);
-
-    
     }
     
 }

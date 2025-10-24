@@ -4,18 +4,11 @@
  */
 package Interfaces;
 
-import java.awt.BorderLayout;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.StackedBarRenderer;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.category.DefaultCategoryDataset;
 import javax.swing.SwingUtilities;
 
-import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Dimension;
 import org.jfree.chart.plot.PiePlot;
@@ -51,18 +44,13 @@ public class VistaSimulacion extends javax.swing.JFrame {
 
     private Semaphore mutexCPUs;
     private Semaphore mutexReloj;
+    
 
     /**
      * Creates new form VistaSimulacion
      */
     public VistaSimulacion(int tiempo, int politica, Lista listo, Lista todos) {
         initComponents();
-        dataset1 = new DefaultPieDataset();
-        dataset2 = new DefaultPieDataset();
-        dataset3 = new DefaultPieDataset();
-        dataset4 = new DefaultPieDataset();
-        jPanel5.setLayout(new BorderLayout());
-        jPanel5.add(createPieChart(dataset2, "CPU 1"), BorderLayout.CENTER);
         this.politica.setSelectedIndex(politica);
         this.tiempoinstruccion.setValue(tiempo);
         this.jLabel16.setText(tiempo + " ms");
@@ -72,7 +60,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
         this.listolista = listo;
         this.todos = todos;
         this.uPcbs();
-
     }
 
     public void setSuspendidosListos(String t) {
@@ -169,73 +156,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
         return this.politica.getSelectedIndex();
     }
 
-    private ChartPanel createPieChart(DefaultPieDataset dataset, String title) {
-
-        dataset.setValue("Usuario", 0);
-        dataset.setValue("Sistema Operativo", 0);
-
-        JFreeChart pieChart = ChartFactory.createPieChart(
-                title,
-                dataset,
-                true, true, false);
-        PiePlot plot = (PiePlot) pieChart.getPlot();
-        plot.setSectionPaint("Usuario", Color.BLUE);
-        plot.setSectionPaint("Sistema Operativo", Color.RED);
-
-        ChartPanel chartPanel = new ChartPanel(pieChart);
-        chartPanel.setPreferredSize(new Dimension(670, 380));
-        return chartPanel;
-    }
-
-    public void updateDataset(int chartNumber, String category, int value) {
-        SwingUtilities.invokeLater(() -> {
-            DefaultPieDataset dataset;
-            switch (chartNumber) {
-                case 1 ->
-                    dataset = dataset1;
-                case 2 ->
-                    dataset = dataset2;
-                case 3 ->
-                    dataset = dataset3;
-                case 4 ->
-                    dataset = dataset4;
-                default ->
-                    throw new IllegalArgumentException("Invalid chart number: " + chartNumber);
-            }
-
-            Number existingValue = dataset.getValue(category);
-            int newValue = existingValue.intValue() + value;
-            dataset.setValue(category, newValue);
-
-            switch (chartNumber) {
-                case 1 ->
-                    ((ChartPanel) jPanel5.getComponent(0)).repaint();
-            }
-        });
-    }
-
-    private void resetUIForNewRun() {
-        // TextAreas
-        cpu1.setText("");
-        listos.setText("");
-        bloqueados.setText("");
-        salida.setText("");
-        pcbs.setText("");
-        relojglobal.setText("0");
-
-        // Gráficas a cero
-        dataset1.setValue("Usuario", 0);
-        dataset1.setValue("Sistema Operativo", 0);
-        dataset2.setValue("Usuario", 0);
-        dataset2.setValue("Sistema Operativo", 0);
-        dataset3.setValue("Usuario", 0);
-        dataset3.setValue("Sistema Operativo", 0);
-        dataset4.setValue("Usuario", 0);
-        dataset4.setValue("Sistema Operativo", 0);
-
-        ((ChartPanel) jPanel5.getComponent(0)).repaint();
-    }
-
     private void buildQueuesFromTodos() {
         listolista.vaciar();
         blockedList.vaciar();
@@ -307,8 +227,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
         duracionexcep = new javax.swing.JTextField();
         tipoproceso = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        allProcess = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -408,12 +326,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
 
         jLabel13.setText("Tipo:");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 30, 20));
-
-        allProcess.setColumns(20);
-        allProcess.setRows(5);
-        jScrollPane3.setViewportView(allProcess);
-
-        jPanel2.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 90, 180, 320));
 
         jLabel5.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         jLabel5.setText("Crear Procesos");
@@ -610,8 +522,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            // 1) Resetear UI
-            resetUIForNewRun();
             // 2) Reconstruir colas desde 'todos'
             buildQueuesFromTodos();
             // 3) Crear planificador + 1 CPU + Reloj NUEVOS y arrancar
@@ -629,7 +539,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void guardarprocesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarprocesoActionPerformed
-        // TODO add your handling code here:
+        
         int ciclo = 1; // cicloexcep
         int duracionciclp = 1; // duracionexcep
         if (this.validateInputs()) {
@@ -642,6 +552,8 @@ public class VistaSimulacion extends javax.swing.JFrame {
             listolista.InsertarFinal(p);
             todos.InsertarFinal(p);
             this.uPcbs();
+            
+            JOptionPane.showConfirmDialog(null, "Proceso creado correctamente.");
 
         } else {
             javax.swing.JOptionPane.showMessageDialog(null, "error en los atributos del proceso");
@@ -740,7 +652,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextArea allProcess;
     private javax.swing.JTextArea bloqueados;
     private javax.swing.JButton btnDetener;
     private javax.swing.JTextField cicloexcep;
@@ -773,7 +684,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
