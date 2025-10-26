@@ -561,7 +561,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
             todos.InsertarFinal(p);
             this.uPcbs();
 
-            JOptionPane.showConfirmDialog(null, "Proceso creado correctamente.");
+            JOptionPane.showMessageDialog(null, "Proceso creado correctamente.");
 
         } else {
             javax.swing.JOptionPane.showMessageDialog(null, "error en los atributos del proceso");
