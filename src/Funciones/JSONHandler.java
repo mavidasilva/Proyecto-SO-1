@@ -50,8 +50,8 @@ public class JSONHandler {
     }
 
     /**
-     * Lee un archivo JSON (array de Proceso) y lo vuelca en una Lista.Si
-     * falla, devuelve una lista vacía.
+     * Lee un archivo JSON (array de Proceso) y lo vuelca en una Lista.Si falla,
+     * devuelve una lista vacía.
      *
      * @param filePath
      * @return
@@ -107,5 +107,16 @@ public class JSONHandler {
         if (parent != null && !Files.exists(parent)) {
             Files.createDirectories(parent);
         }
+    }
+
+    /**
+     * Borra TODOS los procesos del archivo JSON escribiendo un arreglo vacío.Si el archivo no existe, lo crea.
+     * @param filePath
+     * @throws java.io.IOException
+     */
+    public static void clearProcesosJson(String filePath) throws IOException {
+        ensureParentDirectory(Path.of(filePath));
+        // escribe un array vacío de Proceso
+        MAPPER.writeValue(new File(filePath), new Proceso[0]);
     }
 }

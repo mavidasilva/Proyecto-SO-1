@@ -44,7 +44,6 @@ public class VistaSimulacion extends javax.swing.JFrame {
 
     private Semaphore mutexCPUs;
     private Semaphore mutexReloj;
-    
 
     /**
      * Creates new form VistaSimulacion
@@ -256,6 +255,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         suspendidosBloqueados = new javax.swing.JTextArea();
+        btnLimpiarJson = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         tiempoinstruccion = new javax.swing.JSlider();
         jLabel15 = new javax.swing.JLabel();
@@ -369,7 +369,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
         salida.setRows(5);
         jScrollPane1.setViewportView(salida);
 
-        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 110, 180));
+        jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 270, 110, 180));
 
         pcbs.setEditable(false);
         pcbs.setColumns(20);
@@ -381,33 +381,33 @@ public class VistaSimulacion extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(pcbs);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 110, 410));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 40, 110, 410));
 
         bloqueados.setEditable(false);
         bloqueados.setColumns(20);
         bloqueados.setRows(5);
         jScrollPane7.setViewportView(bloqueados);
 
-        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 40, 110, 170));
+        jPanel4.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 40, 110, 170));
 
         listos.setEditable(false);
         listos.setColumns(20);
         listos.setRows(5);
         jScrollPane6.setViewportView(listos);
 
-        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 110, 410));
+        jPanel4.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 110, 410));
 
         jLabel1.setText("PCB");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 20, -1, -1));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, -1, -1));
 
         jLabel2.setText("Salida");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 240, -1, -1));
 
         jLabel3.setText("Suspendido Bloq.");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 20, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, -1, -1));
 
         jLabel4.setText("Listos");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 20, -1, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 20, -1, -1));
 
         jLabel6.setText("Reloj Global");
         jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
@@ -425,27 +425,35 @@ public class VistaSimulacion extends javax.swing.JFrame {
                 btnDetenerActionPerformed(evt);
             }
         });
-        jPanel4.add(btnDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 340, -1));
+        jPanel4.add(btnDetener, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 510, 340, -1));
 
         suspendidosListos.setEditable(false);
         suspendidosListos.setColumns(20);
         suspendidosListos.setRows(5);
         jScrollPane8.setViewportView(suspendidosListos);
 
-        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 110, 180));
+        jPanel4.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 270, 110, 180));
 
         jLabel18.setText("Bloqueados");
-        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
+        jPanel4.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 20, -1, -1));
 
         jLabel19.setText("Suspendido listo");
-        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 250, -1, -1));
+        jPanel4.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, -1, -1));
 
         suspendidosBloqueados.setEditable(false);
         suspendidosBloqueados.setColumns(20);
         suspendidosBloqueados.setRows(5);
         jScrollPane9.setViewportView(suspendidosBloqueados);
 
-        jPanel4.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 40, 120, 170));
+        jPanel4.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 120, 170));
+
+        btnLimpiarJson.setText("Limpiar Lista Procesos");
+        btnLimpiarJson.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarJsonActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnLimpiarJson, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 460, 180, -1));
 
         jTabbedPane1.addTab("Simulación", jPanel4);
 
@@ -539,7 +547,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void guardarprocesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarprocesoActionPerformed
-        
+
         int ciclo = 1; // cicloexcep
         int duracionciclp = 1; // duracionexcep
         if (this.validateInputs()) {
@@ -552,7 +560,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
             listolista.InsertarFinal(p);
             todos.InsertarFinal(p);
             this.uPcbs();
-            
+
             JOptionPane.showConfirmDialog(null, "Proceso creado correctamente.");
 
         } else {
@@ -615,6 +623,67 @@ public class VistaSimulacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDetenerActionPerformed
 
+    private void btnLimpiarJsonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarJsonActionPerformed
+        if (!jButton2.isEnabled()) {
+            JOptionPane.showMessageDialog(this,
+                    "No se puede limpiar mientras la simulación está en ejecución.\n"
+                    + "Detén la simulación o reinicia la aplicación.",
+                    "Acción no permitida",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int conf = JOptionPane.showConfirmDialog(
+                this,
+                "¿Seguro que deseas eliminar TODOS los procesos guardados?\n"
+                + "Esta acción no se puede deshacer.",
+                "Confirmar limpieza de JSON",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (conf != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+            // 1) Vaciar archivo procesos.json
+            JSONHandler.clearProcesosJson("procesos.json");
+
+            // 2) Vaciar estructuras en memoria
+            if (listolista != null) {
+                listolista.vaciar();
+            }
+            if (todos != null) {
+                todos.vaciar();
+            }
+            if (blockedList != null) {
+                blockedList.vaciar();
+            }
+            if (exitList != null) {
+                exitList.vaciar();
+            }
+
+            // 3) Refrescar interfaz (dejar todo en blanco)
+            pcbs.setText("");
+            listos.setText("");
+            bloqueados.setText("");
+            salida.setText("");
+            if (suspendidosListos != null) {
+                suspendidosListos.setText("");
+            }
+            if (suspendidosBloqueados != null) {
+                suspendidosBloqueados.setText("");
+            }
+
+            JOptionPane.showMessageDialog(this, "✅ Se eliminaron todos los procesos del JSON.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al limpiar JSON: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnLimpiarJsonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -654,6 +723,7 @@ public class VistaSimulacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea bloqueados;
     private javax.swing.JButton btnDetener;
+    private javax.swing.JButton btnLimpiarJson;
     private javax.swing.JTextField cicloexcep;
     private javax.swing.JTextArea cpu1;
     private javax.swing.JTextField duracion;
